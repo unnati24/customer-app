@@ -1,0 +1,61 @@
+<div class="card">
+    <div class="card-header ">
+        <div class="row ">
+            <h5> Customer Details</h5>
+            <span class="fx-spacer"></span>
+            <button mat-icon-button (click)="onCancel()">
+                <mat-icon mat-list-icon>cancel</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-5">Id</div>
+            <div class="col-sm-7">
+                <p id="id" type="text">{{this.data['row'].customerId}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-5">Name</div>
+            <div class="col-sm-7">
+                <p id="id" type="text">{{this.data['row'].name}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-5">Username</div>
+            <div class="col-sm-7">
+                <p id="id" type="text">{{this.data['row'].username}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-5">Website</div>
+            <div class="col-sm-7">
+                <p id="id" type="text">{{this.data['row'].website}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-5">Email</div>
+            <div class="col-sm-7">
+                <p id="id" type="text">{{this.data['row'].email}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-5">Contact number</div>
+            <div class="col-sm-7">
+                <p id="id" type="text">{{this.data['row'].phone}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-5">Company</div>
+            <div class="col-sm-7">
+                <p id="id" type="text">{{this.data['row'].company}}
+            </div>
+        </div>
+    </div>
+</div>

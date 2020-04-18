@@ -1,0 +1,96 @@
+<div class="customer-content card container my-3">
+  <div class="card-header">
+    <div class="row">
+      <h5>Customers ({{customerTotal}})</h5>
+      <span class="fx-spacer"></span>
+      <div class="form-group has-search">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input class="form-control" placeholder="Search Customer" (keyup)="filterSubject.next($event.target.value)">
+      </div>
+    </div>
+  </div>
+
+  <div class="mat-elevation-z8 data-table card-body container">
+    
+    <table full-width-table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort matSortDisableClear="true"
+      [matSortActive]="defaultSort.active" [matSortDirection]="defaultSort.direction">
+
+      <ng-container matColumnDef="customerId">
+        <th mat-header-cell class="customer-label" *matHeaderCellDef mat-sort-header>Customer Id</th>
+        <td mat-cell class="dc-content" *matCellDef="let element">{{element.customerId}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell class="customer-label" *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell class="dc-content" *matCellDef="let element">{{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="username">
+        <th mat-header-cell class="customer-label" *matHeaderCellDef>Username</th>
+        <td mat-cell class="dc-content" *matCellDef="let element">{{element.username}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell class="customer-label" *matHeaderCellDef>Email</th>
+        <td mat-cell class="dc-content" *matCellDef="let element">{{element.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions" class="narrow">
+        <th class="narrow customer-label" mat-header-cell *matHeaderCellDef>Actions</th>
+        <td class="narrow" mat-cell *matCellDef="let element">
+          <button mat-icon-button color="accent">
+            <mat-icon aria-label="View Details" (click)="onClickAction(element)">launch</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container  matColumnDef="expandedDetail">
+        <td  id="expanded-customer" mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+            <div class="row customer-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <div class="col-12">
+                <span class="element-style">ADDRESS :</span>
+              </div>
+              <div class="col-12">
+                <span class="element-style">Suite : {{element.altAddress}}</span>
+                <span class="element-style">Street : {{element.street}}</span>
+                <span class="element-style">City : {{element.city}}</span>
+                <span class="element-style">State : {{element.state}}</span>
+                <span class="element-style">ZipCode : {{element.zipcode}}</span>
+              </div>
+            </div>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="noData">
+        <td mat-cell class="customer-label no-data-cell" *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+          <ng-container *ngIf="!(error$ | async) && !loading">
+            <span class="dc-content">No Customers</span>
+          </ng-container>
+          <ng-container *ngIf="(error$ | async) && !loading">
+            <span class="customer-label">System Failure</span>
+            <span class="dc-content">Error</span>
+            <span class="retry" (click)="retry()">Retry</span>
+          </ng-container>
+          <ng-container *ngIf="loading">
+            <span class="customer-label">Retrieving data...</span>
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <tr id="header" mat-header-row *matHeaderRowDef="displayedColumns, sticky: true"></tr>
+      <ng-container *ngIf="customerTotal && !loading">
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"
+          [class.example-expanded-row]="expandedElement === row"
+          (click)="expandedElement = expandedElement === row ? null : row"></tr>
+      </ng-container>
+      <ng-container *ngIf="!customerTotal || loading">
+        <tr mat-row *matRowDef="let row; columns: ['noData'];" class="no-data-row"></tr>
+      </ng-container>
+
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+
+    <mat-paginator [length]="customerTotal" [pageSize]="3" [pageSizeOptions]="[3, 5, 10]"></mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+.card {
+    width: 25rem;
+    height: 20Srem;
+}
+
+.card-body {
+    align-items: center;
+    background-color: rgb(241, 248, 245);
+}
+
+.card-header {
+    background-color: rgb(203, 211, 207);
+}
+
+.fx-spacer {
+    flex: 1 1 49%;
+}
+
+.col-sm-7 {
+    padding-right: 4px;
+}
